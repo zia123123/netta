@@ -66,6 +66,9 @@ module.exports = {
             where: {
                 eventId: req.query.eventId
             },
+            order: [
+                ['id', 'DESC'],
+            ],
         }).then(result => {
             return apiResponse.successResponseWithData(res, "SUCCESS", result);
             }).catch(function (err){
