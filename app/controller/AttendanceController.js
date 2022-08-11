@@ -142,26 +142,26 @@ module.exports = {
         }
         let result = await attendance.findAll({
             where: {
-                eventId: req.query.eventId
+                eventId: req.query.eventId,
+                [Op.and]: [
+                    {
+                        email: {    
+                        [Op.like]: '%'+email+'%'
+                      }
+                     },
+                     {
+                        name: {    
+                            [Op.like]: '%'+name+'%'
+                        }
+                    },
+                     {
+                        notelp: {    
+                            [Op.like]: '%'+notelp+'%'
+                        }
+                        
+                    }
+                  ],
             },
-            [Op.and]: [
-                {
-                    email: {    
-                    [Op.like]: '%'+email+'%'
-                  }
-                 },
-                 {
-                    name: {    
-                        [Op.like]: '%'+name+'%'
-                    }
-                },
-                 {
-                    notelp: {    
-                        [Op.like]: '%'+notelp+'%'
-                    }
-                    
-                }
-              ],
             order: [
                 ['name', 'ASC'],
             ],
