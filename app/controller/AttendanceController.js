@@ -110,7 +110,7 @@ module.exports = {
                     result[i].name, 
                     result[i].notelp,
                     result[i].qrcode,
-                    result[i].status,
+                    type,
                 ));
             }
             const wb = new xl.Workbook();
