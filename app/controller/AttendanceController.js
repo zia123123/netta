@@ -85,7 +85,29 @@ module.exports = {
             },
             attributes: ['name','notelp','qrcode','status'],
 
-        }).then(result => {
+        }).then(result => { 
+            class Transaksi {
+                constructor(
+                    name,
+                    notelp,
+                    qrcode,
+                    status
+                ) {
+                  this.name = name; //1
+                  this.notelp = notelp; //2
+                  this.qrcode = qrcode; //3
+                  this.status = status; //4
+                }
+              }
+            var  CheckinArray = [];
+            for(var i=0;i<result.length;i++){
+                CheckinArray.push(new Transaksi(
+                    result[i].name, 
+                    result[i].notelp,
+                    result[i].qrcode,
+                    result[i].status,
+                ));
+            }
             const wb = new xl.Workbook();
             const ws = wb.addWorksheet('Data Checkin');
             const headingColumnNames = [
@@ -94,23 +116,15 @@ module.exports = {
                 "qrcode",
                 "status",
             ]
-
-            const objectArray = Object.entries(result);
             let headingColumnIndex = 1;
             headingColumnNames.forEach(heading => {
                 ws.cell(1, headingColumnIndex++)
                     .string(heading)
             });
             let rowIndex = 2;
-            objectArray.forEach( record => {
+            CheckinArray.forEach( record => {
                 let columnIndex = 1;
                 Object.keys(record ).forEach(columnName =>{
-                    // console.log('record: '+record);
-                    // console.log('columnName: '+columnName);
-                    // console.log('columnIndex: '+columnIndex);
-                    // console.log('rowIndex: '+rowIndex);
-                    // console.log('record [columnName]: '+record [columnName]);
-                    // console.log('==========================================');
                     ws.cell(rowIndex,columnIndex++)
                         .string(record [columnName])
                 });
