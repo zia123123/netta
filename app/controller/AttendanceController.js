@@ -101,7 +101,7 @@ module.exports = {
               }
             var  CheckinArray = [];
             for(var i=0;i<result.length;i++){
-                if(result[i].typebayar == true){
+                if(result[i].status == true){
                     var type = "PRESENS"
                   }else{
                     var type = "ABSENS"
