@@ -71,9 +71,9 @@ router.get('/api/attendance/',authtoken, AttendanceController.index);
 router.get('/api/attendance/count/',authtoken, AttendanceController.jumlah);
 
 
-router.get('/api/attendance/find/',authtoken, AttendanceController.findByName);
+router.get('/api/attendancefind/',authtoken, AttendanceController.findByName);
 
-router.get('/api/attendance/getexcel/',authtoken, AttendanceController.findByName);
+router.get('/api/attendancegetexcel/',authtoken, AttendanceController.excelEvent);
 
 
 
