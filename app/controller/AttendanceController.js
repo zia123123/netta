@@ -94,13 +94,15 @@ module.exports = {
                 "qrcode",
                 "status",
             ]
+
+            const objectArray = Object.entries(result);
             let headingColumnIndex = 1;
             headingColumnNames.forEach(heading => {
                 ws.cell(1, headingColumnIndex++)
                     .string(heading)
             });
             let rowIndex = 2;
-            result.forEach( record => {
+            objectArray.forEach( record => {
                 let columnIndex = 1;
                 Object.keys(record ).forEach(columnName =>{
                     // console.log('record: '+record);
