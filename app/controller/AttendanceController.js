@@ -91,12 +91,14 @@ module.exports = {
                     name,
                     notelp,
                     qrcode,
-                    status
+                    status,
+                    scanqrcode
                 ) {
                   this.name = name; //1
                   this.notelp = notelp; //2
                   this.qrcode = qrcode; //3
                   this.status = status; //4
+                  this.scanqrcode = scanqrcode; //5
                 }
               }
             var  CheckinArray = [];
@@ -106,11 +108,13 @@ module.exports = {
                   }else{
                     var type = "ABSENS"
                   } 
+                  var data = '=IMAGE("https://quickchart.io/qr?text=" & ENCODEURL(C'+i+'))'
                 CheckinArray.push(new Transaksi(
                     result[i].name, 
                     result[i].notelp,
                     result[i].qrcode,
                     type,
+                    data
                 ));
             }
             const wb = new xl.Workbook();
@@ -120,6 +124,7 @@ module.exports = {
                 "notelp",
                 "qrcode",
                 "status",
+                "scanqrcode"
             ]
             let headingColumnIndex = 1;
             headingColumnNames.forEach(heading => {
