@@ -5,6 +5,7 @@ const { Op } = require("sequelize")
 const authConfig = require('../../config/auth');
 const apiResponse = require("../helpers/apiResponse");
 const randomstring = require("randomstring");
+const xl = require('excel4node');
 
 module.exports = {
 
@@ -14,6 +15,7 @@ module.exports = {
             qrcode: randomstring.generate(10),
             eventId: req.body.eventId,
             name: req.body.name,
+            email: req.body.email,
             notelp: req.body.notelp,
             status: false
         }).then(result => {
@@ -68,6 +70,100 @@ module.exports = {
             },
             order: [
                 ['id', 'DESC'],
+            ],
+        }).then(result => {
+            return apiResponse.successResponseWithData(res, "SUCCESS", result);
+            }).catch(function (err){
+                return apiResponse.ErrorResponse(res, err);
+        });
+    },
+
+    async excelEvent(req, res, next) {
+        let result = await attendance.findAll({
+            where: {
+                eventId: req.query.eventId
+            },
+            attributes: ['name','notelp','qrcode','status'],
+
+        }).then(result => {
+            const wb = new xl.Workbook();
+            const ws = wb.addWorksheet('Data Checkin');
+            const headingColumnNames = [
+                "name",
+                "notelp",
+                "qrcode",
+                "status",
+            ]
+            let headingColumnIndex = 1;
+            headingColumnNames.forEach(heading => {
+                ws.cell(1, headingColumnIndex++)
+                    .string(heading)
+            });
+            let rowIndex = 2;
+            result.forEach( record => {
+                let columnIndex = 1;
+                Object.keys(record ).forEach(columnName =>{
+                    // console.log('record: '+record);
+                    // console.log('columnName: '+columnName);
+                    // console.log('columnIndex: '+columnIndex);
+                    // console.log('rowIndex: '+rowIndex);
+                    // console.log('record [columnName]: '+record [columnName]);
+                    // console.log('==========================================');
+                    ws.cell(rowIndex,columnIndex++)
+                        .string(record [columnName])
+                });
+                rowIndex++;
+            }); 
+            var filename = +Date.now()+'-checkin.xlsx'
+            returnData = {
+                metadata: {
+                    link: filename,
+                }
+            }
+            wb.write(filename,res);
+            }).catch(function (err){
+                return apiResponse.ErrorResponse(res, err);
+        });
+    },
+
+    async findByName(req, res, next) {
+        let email = req.query.status
+        let name = req.query.name
+        let notelp = req.query.notelp
+
+        if( email == null ){
+            email = ""
+        }
+        if( name == null ){
+            name = ""
+        }
+        if( notelp == null ){
+            notelp = ""
+        }
+        let result = await attendance.findAll({
+            where: {
+                eventId: req.query.eventId
+            },
+            [Op.and]: [
+                {
+                    email: {    
+                    [Op.like]: '%'+email+'%'
+                  }
+                 },
+                 {
+                    name: {    
+                        [Op.like]: '%'+name+'%'
+                    }
+                },
+                 {
+                    notelp: {    
+                        [Op.like]: '%'+notelp+'%'
+                    }
+                    
+                }
+              ],
+            order: [
+                ['name', 'ASC'],
             ],
         }).then(result => {
             return apiResponse.successResponseWithData(res, "SUCCESS", result);

@@ -11,7 +11,7 @@
     "cors": "^2.8.5",
     "csv-generate": "^4.0.4",
     "dotenv": "^8.2.0",
-    "excel4node": "^1.7.2",
+    "excel4node": "^1.8.0",
     "exceljs": "^4.3.0",
     "export-to-csv": "^0.2.1",
     "express": "^4.17.1",

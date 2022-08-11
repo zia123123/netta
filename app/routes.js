@@ -67,10 +67,13 @@ router.post('/api/login/', EventController.signInUser);
 router.get('/api/attendance/event/', AttendanceController.findByIdEvent);
 router.post('/api/checkin',authtoken, AttendanceController.checkin);
 router.get('/api/log/',authtoken, AttendanceController.getlog);
-
 router.get('/api/attendance/',authtoken, AttendanceController.index);
-
 router.get('/api/attendance/count/',authtoken, AttendanceController.jumlah);
+
+
+router.get('/api/attendance/find/',authtoken, AttendanceController.findByName);
+
+router.get('/api/attendance/getexcel/',authtoken, AttendanceController.findByName);
 
 
 
