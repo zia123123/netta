@@ -73,7 +73,7 @@ router.get('/api/attendance/count/',authtoken, AttendanceController.jumlah);
 
 router.get('/api/memek/',authtoken, AttendanceController.findByName);
 
-router.get('/api/attendancegetexcel/',authtoken, AttendanceController.excelEvent);
+router.get('/api/attendancegetexcel/', AttendanceController.excelEvent);
 
 
 
