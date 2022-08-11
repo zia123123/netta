@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     codeEvent: {
       type: DataTypes.STRING,
     },
+    nameEvent: {
+      type: DataTypes.STRING,
+    },
     password: {
       type: DataTypes.STRING,
     },

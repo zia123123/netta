@@ -13,6 +13,7 @@ module.exports = {
         let result = await event.create({
             codeEvent: randomstring.generate(7),
             password: password,
+            nameEvent: req.body.nameEvent,
             status: true
         }).then(result => {
             return apiResponse.successResponseWithData(res, "SUCCESS CREATE", result);

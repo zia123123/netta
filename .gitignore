@@ -110,3 +110,4 @@ dist
 .ethos-firestore-key
 
 # database 
+config/database.js

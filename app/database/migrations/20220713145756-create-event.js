@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      nameEvent: {
+        type: Sequelize.STRING
+      },
       codeEvent: {
         uniqe: true,
         type: Sequelize.STRING
