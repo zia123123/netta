@@ -9,15 +9,14 @@ module.exports = (req, res, next) => {
         let token = req.headers.authorization.split(" ")[1];
         jwt.verify(token, authConfig.secret, (err, decoded) => {
             if(err) {
-                res.status(500).json({ msg: "Token Habis", err });
+                res.status(401).json({ msg: "Token sudah habis" });
             } else {
                 event.findByPk(decoded.event.id).then(event => {
                     req.event = event;
                     next();
                 }).catch(err => {
-                    res.status(500).json({
-                        msg: "Sever Error"
-                });
+                    res.status(401).json({ msg: "Anda tidak memiliki akses" });
+
             });
             }
         })

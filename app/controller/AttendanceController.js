@@ -30,7 +30,7 @@ module.exports = {
             },
         }).then(attendances => {
             if(attendances.status == true || attendances.eventId != req.body.eventId){
-                return apiResponse.ErrorResponse(res, "User Sudah Melakukan Checkin!/Tidak terdaftar");
+                return apiResponse.validationErrorWithData(res, "User Sudah Melakukan Checkin!/Tidak terdaftar");
             }else{
             attendances.status = true;
             attendances.save()
