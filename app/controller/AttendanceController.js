@@ -101,11 +101,16 @@ module.exports = {
               }
             var  CheckinArray = [];
             for(var i=0;i<result.length;i++){
+                if(result[i].typebayar == true){
+                    var type = "PRESENS"
+                  }else{
+                    var type = "ABSENS"
+                  } 
                 CheckinArray.push(new Transaksi(
                     result[i].name, 
                     result[i].notelp,
                     result[i].qrcode,
-                    result[i].status,
+                    type,
                 ));
             }
             const wb = new xl.Workbook();
