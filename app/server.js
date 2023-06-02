@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
 app.use(cors(corsOpts));
 
 // Settings
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 // Middlewares
 app.use(express.json());
